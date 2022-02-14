@@ -13,8 +13,10 @@ const initialValues = {
     password:'',
 }
 
-const onSubmit =  values => {
+
+const onSubmit =  (values,onSubmitProps) => {
     console.log(values)
+    onSubmitProps.setSubmitting(false)
 }
 
 const validationSchema = Yup.object().shape({
@@ -42,18 +44,26 @@ function Login() {
                     initialValues={initialValues}
                     onSubmit= {onSubmit}
                     validationSchema = {validationSchema }
+                    validateOnMount
                 >
-                    <Form autoComplete = "off"  className="divide-y divide-gray-200">
-                        <div className=" text-base leading-6 space-y-5 text-gray-700 sm:text-lg sm:leading-7">
-                            <FloatingInput id="email" name="email" type="email" placeholder="Email address" />
-                            <FloatingPasswordInput id="password" name="password" type="password" placeholder="Password" />
-                        </div>
-                        <div className="mt-8">
-                            <button type="submit" aria-label="create my account" className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full  ">
-                                 Login to my account
-                            </button>
-                        </div>
-                    </Form>
+                    {
+                        formik => {
+                            return(
+                            <Form autoComplete = "off"  className="divide-y divide-gray-200">
+                                <div className=" text-base leading-6 space-y-5 text-gray-700 sm:text-lg sm:leading-7">
+                                    <FloatingInput id="email" name="email" type="email" placeholder="Email address" />
+                                    <FloatingPasswordInput id="password" name="password" type="password" placeholder="Password" />
+                                </div>
+                                <div className="mt-8">
+                                    <button type="submit" aria-label="create my account" className={`focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full ${(!formik.isValid || formik.isSubmitting) && "focus:ring-gray-700 bg-gray-700 border hover:bg-gray-600"}  `}>
+                                        {formik.isSubmitting ? "Logging You In..." :
+                                        "Login To My Account"}
+                                    </button>
+                                </div>
+                            </Form>
+                            )
+                        }
+                    }
                 </Formik>
                 <Link to = "/signup" className="text-md my-8 flex justify-center">
                         <p className="font-medium text-blue-400 hover:text-blue-500"> Don't have an account? Signup </p>
