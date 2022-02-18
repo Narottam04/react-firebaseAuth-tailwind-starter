@@ -7,17 +7,13 @@ import FloatingInput from "../Components/Buttons/FloatingInput";
 import FloatingPasswordInput from "../Components/Buttons/FloatingPasswordInput";
 import TwitterLoginBtn from '../Components/Buttons/TwitterLoginBtn';
 import GithubLoginBtn from '../Components/Buttons/GithubLoginBtn';
+import {useAuth} from '../Context/AuthContext'
+import ErrorToast from '../Components/ErrorToast';
 
 const initialValues = {
     email: '',
     password:'',
     confirmPassword: '',
-}
-
-const onSubmit =  (values,onSubmitProps) => {
-    console.log(values)
-
-    onSubmitProps.setSubmitting(false)
 }
 
 const validationSchema = Yup.object().shape({
@@ -29,9 +25,32 @@ const validationSchema = Yup.object().shape({
 })
 
 function Signup() {
-   
+   const {signUp} =useAuth()
+   let navigate = useNavigate();
+    
+    const toastRef = useRef(null)
+    const [errorMessage,setErrorMessage] = useState(null)
+
+    async function onSubmit(values,onSubmitProps) {
+        console.log("signup started!")
+        const { email, password } = values
+        try {
+            const response = await signUp(email,password)
+            if (response.user) {
+                console.log("created user successfully")
+                navigate('/')
+            }
+        } catch (error) {
+            setErrorMessage(error.message)
+            toastRef.current.show()
+            console.log(error)
+        }
+
+    }
+
     return (
         <section>
+            <ErrorToast message={errorMessage} ref={toastRef} />
         <div className="flex min-h-screen overflow-hidden">
         <div className="flex flex-col justify-center flex-1 px-4 py-12  sm:px-6 lg:flex-none lg:px-20 xl:px-24">
             <div className="w-full max-w-xl mx-auto lg:w-96">

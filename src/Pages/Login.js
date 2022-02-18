@@ -1,4 +1,4 @@
-import React,{useRef, useEffect} from 'react'
+import React,{useRef, useEffect, useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import GoogleLoginBtn from "../Components/Buttons/GoogleLoginBtn";
 import { Formik,Form } from "formik";
@@ -7,17 +7,14 @@ import FloatingInput from "../Components/Buttons/FloatingInput";
 import FloatingPasswordInput from "../Components/Buttons/FloatingPasswordInput";
 import TwitterLoginBtn from '../Components/Buttons/TwitterLoginBtn';
 import GithubLoginBtn from '../Components/Buttons/GithubLoginBtn';
+import { useAuth } from '../Context/AuthContext';
+import ErrorToast from '../Components/ErrorToast';
 
 const initialValues = {
     email: '',
     password:'',
 }
 
-
-const onSubmit =  (values,onSubmitProps) => {
-    console.log(values)
-    onSubmitProps.setSubmitting(false)
-}
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid Email Address").required("Required"),
@@ -26,9 +23,29 @@ const validationSchema = Yup.object().shape({
 })
 
 function Login() {
-   
+    const {login} =useAuth()
+    let navigate = useNavigate();
+
+    const toastRef = useRef(null)
+    const [errorMessage,setErrorMessage] = useState(null)
+
+    async function onSubmit(values,onSubmitProps) {
+        console.log("login started!")
+        const { email, password } = values
+        try {
+            await login(email,password)
+            console.log("logged in successfully")
+            navigate('/app')
+        } catch (error) {
+            setErrorMessage(error.message)
+            toastRef.current.show()
+            console.log(error)
+        }
+
+    }
     return (
         <section>
+            <ErrorToast message={errorMessage} ref={toastRef} />
         <div className="flex min-h-screen overflow-hidden">
         <div className="flex flex-col justify-center flex-1 px-4 py-12  sm:px-6 lg:flex-none lg:px-20 xl:px-24">
             <div className="w-full max-w-xl mx-auto lg:w-96">
