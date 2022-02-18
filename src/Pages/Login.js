@@ -23,7 +23,7 @@ const validationSchema = Yup.object().shape({
 })
 
 function Login() {
-    const {login} =useAuth()
+    const {login,currentUser} =useAuth()
     let navigate = useNavigate();
 
     const toastRef = useRef(null)
@@ -43,6 +43,13 @@ function Login() {
         }
 
     }
+
+    useEffect(()=> {
+        if(currentUser) {
+            navigate('/app')
+        }
+    },[currentUser])
+
     return (
         <section>
             <ErrorToast message={errorMessage} ref={toastRef} />

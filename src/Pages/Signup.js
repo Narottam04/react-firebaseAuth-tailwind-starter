@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
 })
 
 function Signup() {
-   const {signUp} =useAuth()
+   const {signUp,currentUser} =useAuth()
    let navigate = useNavigate();
     
     const toastRef = useRef(null)
@@ -47,6 +47,13 @@ function Signup() {
         }
 
     }
+
+    
+    useEffect(()=> {
+        if(currentUser) {
+            navigate('/app')
+        }
+    },[currentUser])
 
     return (
         <section>
