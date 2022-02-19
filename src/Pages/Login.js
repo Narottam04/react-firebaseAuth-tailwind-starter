@@ -77,6 +77,9 @@ function Login() {
                                 <div className=" text-base leading-6 space-y-5 text-gray-700 sm:text-lg sm:leading-7">
                                     <FloatingInput id="email" name="email" type="email" placeholder="Email address" />
                                     <FloatingPasswordInput id="password" name="password" type="password" placeholder="Password" />
+                                    <Link to = "/forgotPassword" className="text-sm my-8">
+                                        <p className="font-medium  text-blue-400 pt-2 hover:text-blue-500"> Forgot Password?</p>
+                                    </Link>
                                 </div>
                                 <div className="mt-8">
                                     <button type="submit" aria-label="create my account" className={`focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full ${(!formik.isValid || formik.isSubmitting) && "focus:ring-gray-700 bg-gray-700 border hover:bg-gray-600"}  `}>
