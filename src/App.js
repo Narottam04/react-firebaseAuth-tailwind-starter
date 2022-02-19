@@ -6,10 +6,13 @@ import Signup from './Pages/Signup';
 import ResetPassword from './Pages/ResetPassword';
 import Dashboard from './Pages/Dashboard';
 import ProtectedRoute from './Components/ProtectedRoute'
+import ForgotPassword from './Pages/ForgotPassword';
+import ScrollToTop from './Components/ScrollToTop';
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <ScrollToTop/>
         <Routes>
           <Route path = "/" element={<Login/>} />
           <Route path = "/app" 
@@ -21,7 +24,8 @@ function App() {
           />
           <Route path = "/signup" element={<Signup/>} />
           <Route path = "/resetPassword" element={<ResetPassword/>} />
-          <Route path = "/error" element={<NotFound404/>} />
+          <Route path = "/forgotPassword" element={<ForgotPassword/>} />
+          <Route path = "*" element={<NotFound404/>} />
         </Routes>
       </BrowserRouter>
     </div>

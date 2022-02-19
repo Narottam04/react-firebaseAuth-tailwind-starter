@@ -1,18 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import error404 from '../Assets/images/error404.png'
 
 const NotFound404 = () => {
     return (
-        <div className="flex items-center flex-col justify-center lg:flex-row py-28 px-6 md:px-24 md:py-20 lg:py-32 gap-16 lg:gap-28">
-            <div className="w-full lg:w-1/2">
-                <img className="hidden lg:block" src="https://i.ibb.co/v30JLYr/Group-192-2.png" alt="" />
-                <img className="hidden md:block lg:hidden" src="https://i.ibb.co/c1ggfn2/Group-193.png" alt="" />
-                <img className="md:hidden" src="https://i.ibb.co/8gTVH2Y/Group-198.png" alt="" />
-            </div>
-            <div className="w-full lg:w-1/2">
-                <h1 className="py-4 text-3xl lg:text-4xl font-extrabold text-gray-800">Looks like you've found the doorway to the great nothing</h1>
-                <p className="py-4 text-base text-gray-800">The content you’re looking for doesn’t exist. Either it was removed, or you mistyped the link.</p>
-                <p className="py-2 text-base text-gray-800">Sorry about that! Please visit our hompage to get where you need to go.</p>
-                <button className="w-full lg:w-auto my-4 border rounded-md px-1 sm:px-16 py-5 bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50">Go back to Homepage</button>
+        <div>
+            <div className="flex justify-between h-screen items-center max-w-screen-xl mx-auto ">
+                <div className="max-w-md text-center md:text-right">
+                    <h1 className="font-bold text-5xl mb-4">Oops!</h1>
+                    <h2 className="font-semibold text-4xl mb-14">We couldn't find that page</h2>
+                    <p className="text-2xl mb-4 mx-2 md:mx-0 ">Maybe you can find what you need here?</p>
+                    <div >
+                        <Link className="font-bold text-xl underline text-blue-600" to='/'>Homepage</Link>
+                    </div>
+                    <div >
+                        <Link className="font-bold text-xl underline text-blue-600" to='/'>Homepage</Link>
+                    </div>
+                    <div >
+                        <Link className="font-bold text-xl underline text-blue-600" to='/'>Homepage</Link>
+                    </div>
+                </div>
+                <div className="hidden flex-1 md:flex flex-col">
+                    <img src={error404}  alt="404 error not found" />
+                </div>
             </div>
         </div>
     );

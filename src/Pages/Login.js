@@ -52,7 +52,7 @@ function Login() {
 
     return (
         <section>
-            <ErrorToast message={errorMessage} ref={toastRef} />
+        <ErrorToast message={errorMessage} ref={toastRef} />
         <div className="flex min-h-screen overflow-hidden">
         <div className="flex flex-col justify-center flex-1 px-4 py-12  sm:px-6 lg:flex-none lg:px-20 xl:px-24">
             <div className="w-full max-w-xl mx-auto lg:w-96">
